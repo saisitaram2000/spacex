@@ -1,11 +1,11 @@
 import './App.css';
 import Header from './components/Header';
-import SpacexDetails from './components/SpacexDetails';
+import SpacexMissions from './components/SpacexMissions';
 function App() {
   return (
     <div className="App">
         <Header/>
-        <SpacexDetails/>
+        <SpacexMissions/>
     </div>
   );
 }
