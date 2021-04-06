@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Card } from "react-bootstrap";
 import './SpacexMissions.css';
-const API_BASE_URL = "https://api.spacexdata.com/v3/launches?limit=100";
+const API_BASE_URL = "https://api.spacexdata.com/v3/launches?limit=100&launch_success=true";
 export default class SpacexDetails extends Component {
     constructor(props) {
         super(props)
@@ -14,7 +14,8 @@ export default class SpacexDetails extends Component {
     SpacexMissions = ()=>(
         this.state.data.map(mission=>{
             const {flight_number,mission_name,mission_id,links,rocket,launch_year,launch_success}=mission;
-            console.log(rocket.first_stage.cores[0].land_success);
+            // console.log(rocket.first_stage.cores[0].land_success);
+            console.log(launch_success);
             return <Card className="spacex-missions-single" key={flight_number}>
                        <div className="spacex-missions-single-image">
                            <img 
@@ -43,11 +44,15 @@ export default class SpacexDetails extends Component {
                            </div>
                            <div className="spacex-mission-label">
                                Launch Succesfull :
-                               <span className="spacex-mission-value">{launch_success}</span>
+                               <span className="spacex-mission-value">
+                                    {launch_success ? "True" : "False"}
+                               </span>
                            </div>
                            <div className="spacex-mission-label">
                                Land Succesfull :
-                               <span className="spacex-mission-value">{rocket.first_stage.cores[0].land_success}</span>
+                               <span className="spacex-mission-value">
+                                    {rocket.first_stage.cores[0].land_success? "True":"False"}
+                               </span>
                            </div>
                        </div>
             </Card>
@@ -56,12 +61,12 @@ export default class SpacexDetails extends Component {
     componentDidMount(){
         fetch(API_BASE_URL)
         .then(response => response.json())
-        .then(data => this.setState({data:data}))
+        .then(data => {this.setState({data:data});
+                        console.log(data)})
         .catch(error => console.log(error));
        
     }
     render() {
-        console.log(this.state.data);
         return (
             <div className="spacex">
                 <div className="spacex-buttons">
