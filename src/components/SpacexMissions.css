@@ -17,13 +17,13 @@
 .spacex-dropdown{
     width: 200px;
 }
-.spacex-applyfilter-button{
+/* .spacex-applyfilter-button{
     width: 150px;
     height: 35px;
     font-size: 20px;
     font-weight: 500;
    
-}
+} */
 .spacex-missions{
     position: relative;
     display: flex;

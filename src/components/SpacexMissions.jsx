@@ -6,10 +6,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './SpacexMissions.css';
 const API_BASE_URL = "https://api.spacexdata.com/v3/launches?limit=100";
 const filterLaunchLand =[
+    { label: "ALL", value: undefined },
     { label: "TRUE", value: true },
     { label: "FALSE", value: false },
   ];
   const filterYears =[
+    { label: "ALL", value:undefined},
+    { label: "2021", value:2021},
     { label: "2020", value:2020},
     { label: "2019", value:2019 },
     { label: "2018", value:2018 },
@@ -49,26 +52,14 @@ export default class SpacexDetails extends Component {
         // this.handleApplyFilters=this.handleApplyFilters.bind(this);
         
     }
+
     fetchApi = API_URL =>{
         fetch(API_URL)
         .then(response => response.json())
         .then(data => {this.setState({data:data})})
         .catch(error => console.log(error));
     }
-    handleFilterChange = (value,name) =>{
-        // console.log(value);
-        // console.log(name);
-        if(this.state.filters[name]!==value){
-            this.setState(prevState => {
-              let filters = { ...prevState.filters};  
-                filters[name] = value; 
-                // console.log(filters);     
-                return {filters}               
-              })
-        }
-    }
-    handleApplyFilters = () =>{
-        const filters = this.state.filters;
+    addFiltersToApiUrl = (filters) =>{
         var UPDATED_API_URL=API_BASE_URL
         if(filters.launch_success!==undefined || filters.land_success!==undefined || filters.launch_year!==undefined){
            UPDATED_API_URL+='&'+querystring.stringify({...filters});
@@ -76,8 +67,27 @@ export default class SpacexDetails extends Component {
         }
         this.fetchApi(UPDATED_API_URL);
     }
+    // handleFilterChange = (value,name) =>{
+    //     // console.log(value);
+    //     // console.log(name);
+    //     if(this.state.filters[name]!==value){
+    //         this.setState(prevState => {
+    //           let filters = { ...prevState.filters};  
+    //             filters[name] = value; 
+    //             // console.log(filters);     
+    //             return {filters}               
+    //           })
+    //     }
+    // }
+    handleApplyFilters = (value,name) =>{
+        const filters = { ...this.state.filters, [name]: value }
+        this.setState(() => ({ filters }))
+        console.log(filters);
+        this.addFiltersToApiUrl(filters);
+    }
     componentDidMount(){
-        this.fetchApi(API_BASE_URL);  
+        this.fetchApi(API_BASE_URL);
+        
     }
     SpacexMissions = ()=>(
         this.state.data.map(mission=>{
@@ -136,7 +146,7 @@ export default class SpacexDetails extends Component {
                             placeholder="Launch Success" 
                             options={filterLaunchLand} 
                             onChange= {
-                                (e)=>this.handleFilterChange(e.value,"launch_success")
+                                (e)=>this.handleApplyFilters(e.value,"launch_success")
                             }
                         />
                     </div>
@@ -146,7 +156,7 @@ export default class SpacexDetails extends Component {
                             placeholder="Land Success" 
                             options={filterLaunchLand}
                             onChange= {
-                               (e)=> this.handleFilterChange(e.value,"land_success")
+                               (e)=> this.handleApplyFilters(e.value,"land_success")
                             } 
                         />
                     </div>
@@ -157,18 +167,18 @@ export default class SpacexDetails extends Component {
                            
                             options={filterYears}  
                             onChange= {
-                               (e)=> this.handleFilterChange(e.value,"launch_year")
+                               (e)=> this.handleApplyFilters(e.value,"launch_year")
                             }
                         />
                     </div>
-                    <div className="spacex-buttons-label">
+                    {/* <div className="spacex-buttons-label">
                         <button 
                             className="spacex-applyfilter-button"
                             onClick={this.handleApplyFilters}
                         >
                             Apply Filters
                         </button>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="spacex-missions">
                     <this.SpacexMissions/>
