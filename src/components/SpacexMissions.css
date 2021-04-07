@@ -9,21 +9,20 @@
     flex-direction: row;
     justify-content: space-evenly;
     flex-wrap: wrap;
+    background-color: whitesmoke;
 }
 .spacex-buttons-label{
     position: relative;
     padding: 10px;
+    
 }
 .spacex-dropdown{
     width: 200px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
-/* .spacex-applyfilter-button{
-    width: 150px;
-    height: 35px;
-    font-size: 20px;
-    font-weight: 500;
-   
-} */
+.spacex-dropdown :hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
 .spacex-missions{
     position: relative;
     display: flex;
@@ -51,19 +50,33 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    /* justify-content: flex-start; */
 }
 .spacex-mission-name-flight-number{
-    color: grey;
+    color: #63659f;
     font-size: 20px;
     font-weight: 700;
+    margin-bottom: 20px;
     
+}
+.spacex-mission-label-value{
+    position: relative;
+    display: flex;
+    flex-direction: row;
 }
 .spacex-mission-label{
     font-size: 18px;
    font-weight: 500;
+   min-width: 142px;
+   text-align: left;
 }
 .spacex-mission-value{
-    color: grey;
+    text-align: left;
+    color: #63659f;
     font-weight: 400;
+    font-size: 18px;
+}
+.spacex-buttons-label-name {
+    text-align: left;
+    font-weight: 600;
+    font-size: 20px;
 }

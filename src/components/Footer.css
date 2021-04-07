@@ -1,0 +1,13 @@
+.spacex-footer{
+    font-size: 35px;
+    font-weight: 700;
+    background-color: #63659f;
+    height: 70px;
+    line-height: 70px;
+    color:white;
+}
+.spacex-footer-heart{
+    color: red;
+    font-size: 45px;
+    margin-top: 2px;
+}
