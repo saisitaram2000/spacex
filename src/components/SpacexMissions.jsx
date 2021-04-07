@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Card } from "react-bootstrap";
 import Select from 'react-select';
 import querystring from 'querystring';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './SpacexMissions.css';
 const API_BASE_URL = "https://api.spacexdata.com/v3/launches?limit=100";
@@ -33,38 +34,73 @@ const filterLaunchLand =[
     { label: "2003", value:2003 },
     { label: "2002", value:2002 },
     { label: "2001", value:2001 },
-    { label: "2000", value:2000 },
+    { label: "2000", value:2000 }
 
   ];
 export default class SpacexDetails extends Component {
     constructor(props) {
         super(props)
-    
+        let path = window.location.pathname
+        const url_parse=querystring.parse(path, null, null,
+            null);
+        console.log(url_parse);
         this.state = {
             data:[],
             filters:{
-                "launch_success":undefined,
-                "land_success":undefined,
-                "launch_year":undefined
+                "launch_success":url_parse.launch_success,
+                "land_success":url_parse.land_success,
+                "launch_year":url_parse.launch_year
             }
         }
+        //console.log(this.state.filters);
         // this.handleFilterChange=this.handleFilterChange.bind(this);
         // this.handleApplyFilters=this.handleApplyFilters.bind(this);
+        // console.log(window.location.pathname);
+
         
     }
 
     fetchApi = API_URL =>{
+        console.log(API_URL)
         fetch(API_URL)
         .then(response => response.json())
         .then(data => {this.setState({data:data})})
         .catch(error => console.log(error));
     }
+    changeUrlPath = filters =>{
+        //  const url_parse=querystring.parse(URL, null, null,
+        //     null)
+        //      console.log(url_parse);
+        //      let URL_PATH="";
+        //      if(url_parse.launch_success!=="") {
+
+        //      }
+        //      URL_PATH+="&launch_success="+url_parse.launch_success;
+        //      if(url_parse.land_success!=="") URL_PATH+="&land_success="+url_parse.land_success;
+        //      if(url_parse.launch_year!=="") URL_PATH+="&launch_year="+url_parse.launch_year;
+        //      if(URL_PATH!=="") URL_PATH="/"+URL_PATH;
+            var activeFilters={};
+            if(filters.launch_success!==undefined) activeFilters["launch_success"]=filters.launch_success;
+            if(filters.land_success!==undefined) activeFilters["land_success"]=filters.land_success;
+            if(filters.launch_year!==undefined) activeFilters["launch_year"]=filters.launch_year;
+            var path_url=querystring.stringify({...activeFilters});
+            if (path_url!=="") path_url="/?"+path_url;
+            console.log(path_url);
+            const obj={
+            title:"SpaceX",
+            url:path_url
+            }
+            window.history.replaceState(obj,obj.title,obj.url);
+    }
     addFiltersToApiUrl = (filters) =>{
         var UPDATED_API_URL=API_BASE_URL
         if(filters.launch_success!==undefined || filters.land_success!==undefined || filters.launch_year!==undefined){
-           UPDATED_API_URL+='&'+querystring.stringify({...filters});
-            console.log(UPDATED_API_URL);
+          UPDATED_API_URL+='&'+querystring.stringify({...filters});
+           
+         
+           // console.log(UPDATED_API_URL);
         }
+        this.changeUrlPath(filters);
         this.fetchApi(UPDATED_API_URL);
     }
     // handleFilterChange = (value,name) =>{
@@ -82,13 +118,17 @@ export default class SpacexDetails extends Component {
     handleApplyFilters = (value,name) =>{
         const filters = { ...this.state.filters, [name]: value }
         this.setState(() => ({ filters }))
-        console.log(filters);
+        // console.log(filters);
         this.addFiltersToApiUrl(filters);
     }
     componentDidMount(){
+        console.log("hi im in component did mount");
         this.fetchApi(API_BASE_URL);
         
     }
+    // shouldComponentUpdate(nextProps, nextState){
+    //     return this.state.filters!==nextState.filters
+    //    }
     SpacexMissions = ()=>(
         this.state.data.map(mission=>{
             const {flight_number,mission_name,mission_id,links,rocket,launch_year,launch_success}=mission;
