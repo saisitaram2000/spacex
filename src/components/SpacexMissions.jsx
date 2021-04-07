@@ -147,7 +147,6 @@ export default class SpacexDetails extends Component {
     )
     render() {
         const {isLoading}=this.state;
-        console.log(this.state);
         return (
             <div className="spacex">
                 <div className="spacex-buttons">
