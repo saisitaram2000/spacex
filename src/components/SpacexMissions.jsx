@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card } from "react-bootstrap";
 import Select from 'react-select';
 import querystring from 'querystring';
-import ls from 'local-storage'
+// import ls from 'local-storage'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './SpacexMissions.css';
 const API_BASE_URL = "https://api.spacexdata.com/v3/launches?limit=100";
