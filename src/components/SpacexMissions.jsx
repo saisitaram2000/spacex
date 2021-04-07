@@ -189,7 +189,7 @@ export default class SpacexDetails extends Component {
                     </div>
                 </div>
                 <div className="spacex-missions">   
-                    {isLoading?<div><img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif"/></div>:<this.SpacexMissions/>}
+                    {isLoading?<div><img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif" alt="loading"/></div>:<this.SpacexMissions/>}
                 </div>
             </div>
         )
