@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Card } from "react-bootstrap";
 import Select from 'react-select';
 import querystring from 'querystring';
-// import ls from 'local-storage'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './SpacexMissions.css';
 const API_BASE_URL = "https://api.spacexdata.com/v3/launches?limit=100";
@@ -11,42 +10,15 @@ const filterLaunchLand =[
     { label: "TRUE", value: true },
     { label: "FALSE", value: false },
   ];
-  const filterYears =[
-    { label: "ALL", value:undefined},
-    { label: "2021", value:2021},
-    { label: "2020", value:2020},
-    { label: "2019", value:2019 },
-    { label: "2018", value:2018 },
-    { label: "2017", value:2017 },
-    { label: "2016", value:2016 },
-    { label: "2015", value:2015 },
-    { label: "2014", value:2014 },
-    { label: "2013", value:2013 },
-    { label: "2012", value:2012 },
-    { label: "2011", value:2011 },
-    { label: "2010", value:2010 },
-    { label: "2009", value:2009 },
-    { label: "2008", value:2008 },
-    { label: "2007", value:2007 },
-    { label: "2006", value:2006 },
-    { label: "2005", value:2005 },
-    { label: "2004", value:2004 },
-    { label: "2003", value:2003 },
-    { label: "2002", value:2002 },
-    { label: "2001", value:2001 },
-    { label: "2000", value:2000 }
-
-  ];
+var filterYears = [{ label: "ALL", value:undefined}];
+for(let year=new Date().getFullYear();year>2005;year--){
+    filterYears.push({ label:`${year}`, value:year});
+}
 export default class SpacexDetails extends Component {
     constructor(props) {
         super(props)
-        // var path_state = window.history.state;
-        // var path="";
-        // if(path_state!==null) path=path_state.url;
-        // console.log(path.substring(2));
         var query_path = window.location.search;
         const url_parse=querystring.parse(query_path.substring(1), null, null,null);
-        
         this.state = {
             data:[],
             filters:{
@@ -65,15 +37,21 @@ export default class SpacexDetails extends Component {
         .then(data => {this.setState({data:data})})
         .catch(error => console.log(error));
     }
+    addActiveFilterToUrl = filters =>{
+        var activeFilters={};
+        if(filters.launch_success!==undefined) activeFilters["launch_success"]=filters.launch_success;
+        if(filters.land_success!==undefined) activeFilters["land_success"]=filters.land_success;
+        if(filters.launch_year!==undefined) activeFilters["launch_year"]=filters.launch_year;
+        var path_url=querystring.stringify(activeFilters);
+        return path_url
+    }
     changeUrlPath = filters =>{
-        
-            var activeFilters={};
-            if(filters.launch_success!==undefined) activeFilters["launch_success"]=filters.launch_success;
-            if(filters.land_success!==undefined) activeFilters["land_success"]=filters.land_success;
-            if(filters.launch_year!==undefined) activeFilters["launch_year"]=filters.launch_year;
-            var path_url=querystring.stringify(activeFilters);
-            if (path_url!=="") path_url="/?"+path_url;
-            else path_url="/";
+            var path_url=this.addActiveFilterToUrl(filters);
+            if (path_url!==""){
+                path_url="/?"+path_url;
+            }else{
+                path_url="/";
+            } 
             const obj={
             title:"SpaceX",
             url:path_url
@@ -82,13 +60,8 @@ export default class SpacexDetails extends Component {
     }
     updatedApiUrl = filters =>{
         var UPDATED_API_URL=API_BASE_URL
-        var activeFilters={};
-        if(filters.launch_success!==undefined) activeFilters["launch_success"]=filters.launch_success;
-        if(filters.land_success!==undefined) activeFilters["land_success"]=filters.land_success;
-        if(filters.launch_year!==undefined) activeFilters["launch_year"]=filters.launch_year;
-        var path_url=querystring.stringify(activeFilters);
+        var path_url=this.addActiveFilterToUrl(filters);
         if (path_url!=="")  UPDATED_API_URL+='&'+path_url;
-        console.log(UPDATED_API_URL);
         return UPDATED_API_URL;
     }
     addFiltersToApiUrl = filters =>{
