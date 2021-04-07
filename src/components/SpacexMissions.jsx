@@ -28,7 +28,7 @@ export default class SpacexDetails extends Component {
             },
             isLoading:true
         }
-        // this.handleApplyFilters=this.handleApplyFilters.bind(this);
+        this.handleApplyFilters=this.handleApplyFilters.bind(this);
     }
 
     fetchApi = API_URL =>{
