@@ -7,7 +7,7 @@ To run this project locally, run the following command ````yarn start``` or ```n
 ## Deployment
 SpaceX app is deployed on **Firebase** [SpacexLaunchPrograms](https://spacexmissions-v3.web.app/)
 ## UI based on applied Filters
->Filters and Launch Items details cards having Spacex launch details fetched from API
-On First time visit of website or when applied all filters to ALL
+>On First time visit of website or when applied all filters to ALL
+
 ![Alt text](/images/spacex1.png)
 
