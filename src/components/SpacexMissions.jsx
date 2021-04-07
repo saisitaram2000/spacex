@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card } from "react-bootstrap";
 import Select from 'react-select';
 import querystring from 'querystring';
-
+import ls from 'local-storage'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './SpacexMissions.css';
 const API_BASE_URL = "https://api.spacexdata.com/v3/launches?limit=100";
@@ -40,7 +40,10 @@ const filterLaunchLand =[
 export default class SpacexDetails extends Component {
     constructor(props) {
         super(props)
-        let path = window.location.pathname
+        var path_state = window.history.state;
+        var path="";
+        if(path_state!==null) path=path_state.url;
+        console.log(path);
         const url_parse=querystring.parse(path, null, null,
             null);
         console.log(url_parse);
@@ -92,14 +95,15 @@ export default class SpacexDetails extends Component {
             }
             window.history.replaceState(obj,obj.title,obj.url);
     }
-    addFiltersToApiUrl = (filters) =>{
+    updatedApiUrl = filters =>{
         var UPDATED_API_URL=API_BASE_URL
         if(filters.launch_success!==undefined || filters.land_success!==undefined || filters.launch_year!==undefined){
           UPDATED_API_URL+='&'+querystring.stringify({...filters});
-           
-         
-           // console.log(UPDATED_API_URL);
         }
+        return UPDATED_API_URL;
+    }
+    addFiltersToApiUrl = filters =>{
+        var UPDATED_API_URL=this.updatedApiUrl(filters);
         this.changeUrlPath(filters);
         this.fetchApi(UPDATED_API_URL);
     }
@@ -123,8 +127,20 @@ export default class SpacexDetails extends Component {
     }
     componentDidMount(){
         console.log("hi im in component did mount");
-        this.fetchApi(API_BASE_URL);
-        
+        var path_state = window.history.state;
+        if(path_state===null){
+            this.fetchApi(API_BASE_URL);
+        }else{
+            var path=path_state.url;
+            console.log(path);
+            const url_parse=querystring.parse(path, null, null,
+                null);
+            console.log(url_parse);
+            var UPDATED_API_URL =this.updatedApiUrl(url_parse);
+            this.fetchApi(UPDATED_API_URL);
+            
+        }
+   
     }
     // shouldComponentUpdate(nextProps, nextState){
     //     return this.state.filters!==nextState.filters
