@@ -26,7 +26,7 @@ export default class SpacexDetails extends Component {
                 "land_success":url_parse.land_success,
                 "launch_year":url_parse.launch_year
             },
-
+            isLoading:true
         }
         // this.handleApplyFilters=this.handleApplyFilters.bind(this);
     }
@@ -34,7 +34,7 @@ export default class SpacexDetails extends Component {
     fetchApi = API_URL =>{
         fetch(API_URL)
         .then(response => response.json())
-        .then(data => {this.setState({data:data})})
+        .then(data => {this.setState({data:data,isLoading:false})})
         .catch(error => console.log(error));
     }
     addActiveFilterToUrl = filters =>{
@@ -146,6 +146,8 @@ export default class SpacexDetails extends Component {
             </div>
     )
     render() {
+        const {isLoading}=this.state;
+        console.log(this.state);
         return (
             <div className="spacex">
                 <div className="spacex-buttons">
@@ -186,8 +188,8 @@ export default class SpacexDetails extends Component {
                         />
                     </div>
                 </div>
-                <div className="spacex-missions">
-                    <this.SpacexMissions/>
+                <div className="spacex-missions">   
+                    {isLoading?<div><img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif"/></div>:<this.SpacexMissions/>}
                 </div>
             </div>
         )
