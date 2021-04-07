@@ -4,6 +4,7 @@
     background-color: #63659f;
     height: 70px;
     line-height: 70px;
+    color: white;
 }
 .spacex-header::first-letter{
     font-size: 35px;

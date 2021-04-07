@@ -99,7 +99,7 @@ export default class SpacexDetails extends Component {
         return {label:year,value:parseInt(year)};
     }
     SpacexMissions = ()=>(
-        this.state.data.map(mission=>{
+        this.state.data.length!==0?this.state.data.map(mission=>{
             const {flight_number,mission_name,mission_id,links,rocket,launch_year,launch_success}=mission;
             return <Card className="spacex-missions-single" key={flight_number}>
                        <div className="spacex-missions-single-image">
@@ -141,7 +141,9 @@ export default class SpacexDetails extends Component {
                            </div>
                        </div>
             </Card>
-        })
+        }):<div className="spacex-missions-single-no-data">
+                <img className="spacex-missions-no-data-img"  src="./nodata.jpg" alt="nodata"></img>
+            </div>
     )
     render() {
         return (

@@ -9,13 +9,19 @@
     flex-direction: row;
     justify-content: space-evenly;
     flex-wrap: wrap;
+    background-color: whitesmoke;
 }
 .spacex-buttons-label{
     position: relative;
     padding: 10px;
+    
 }
 .spacex-dropdown{
     width: 200px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+.spacex-dropdown :hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 .spacex-missions{
     position: relative;
