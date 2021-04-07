@@ -2,6 +2,13 @@
     font-size: 25px;
     font-weight: 800;
     background-color: #63659f;
-    height: 50px;
-    line-height: 50px;
+    height: 70px;
+    line-height: 70px;
 }
+.spacex-header::first-letter{
+    font-size: 35px;
+}
+.spacex-header-icon i{
+    zoom: 1.5;
+}
+

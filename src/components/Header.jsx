@@ -4,9 +4,10 @@ export default class Header extends Component {
     render() {
         return (
             <div className="spacex-header">
-                SPACEX MISSIONS
+                <p className="spacex-header-start">SPACEX MISSIONS</p>
             </div>
         )
     }
 }
+
 
