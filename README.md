@@ -1,4 +1,4 @@
-## spacex
+# spacex
 An application which would help users list and browse all launches by SpaceX program 
 ## Installation
 To install, simply clone this repository & run the following command ```yarn install``` or ```npm install```, this will install all the dependencies for you.
@@ -13,11 +13,11 @@ SpaceX app is deployed on **Firebase** [SpacexLaunchPrograms](https://spacexmiss
 
 >After Apply LaunchYear filter
 
-![Alt text](/images/spacex3.png)
+![Alt text](/images/spacex2.png)
 
 >After Applying LaunchSuccess and LandSuccess filters
 
-![Alt text](/images/spacex2.png)
+![Alt text](/images/spacex3.png)
 
 >After Applying LaunchSucces,LandSuccess and LaunchYear filters
 
