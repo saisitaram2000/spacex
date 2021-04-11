@@ -115,7 +115,7 @@ export default class SpacexDetails extends Component {
                            </div>
                             {mission_id.length!==0 && <div className="spacex-mission-label-value">
                                 <div className="spacex-mission-label">Mission ids</div>
-                               <div className="spacex-mission-value">
+                                <div className="spacex-mission-value">
                                    {
                                        mission_id.map(id=>{
                                           return <div key={id} className="spacex-mission-value"><b>:&nbsp;&nbsp;&nbsp;</b>{id}</div>
@@ -124,17 +124,19 @@ export default class SpacexDetails extends Component {
                                </div>
                            </div>}
                            <div className="spacex-mission-label-value">
-                           <div className="spacex-mission-label"> Launch Year</div>
-                               <span className="spacex-mission-value"><b>:&nbsp;&nbsp;&nbsp;</b>{launch_year}</span>
+                                <div className="spacex-mission-label"> Launch Year</div>
+                                <span className="spacex-mission-value">
+                                    <b>:&nbsp;&nbsp;&nbsp;</b>{launch_year}
+                                </span>
                            </div>
                            <div className="spacex-mission-label-value">
-                           <div className="spacex-mission-label"> Launch Success</div>
+                                <div className="spacex-mission-label"> Launch Success</div>
                                <span className="spacex-mission-value">
-                               <b>:&nbsp;&nbsp;&nbsp;</b>{launch_success ? "True" : "False"}
+                                    <b>:&nbsp;&nbsp;&nbsp;</b>{launch_success ? "True" : "False"}
                                </span>
                            </div>
                            <div className="spacex-mission-label-value">
-                           <div className="spacex-mission-label"> Land Success</div>
+                                <div className="spacex-mission-label"> Land Success</div>
                                <span className="spacex-mission-value">
                                     <b>:&nbsp;&nbsp;&nbsp;</b>{rocket.first_stage.cores[0].land_success? "True":"False"}
                                </span>
